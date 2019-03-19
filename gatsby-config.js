@@ -20,7 +20,12 @@ if (!spaceId || !accessToken) {
 }
 
 module.exports = {
-  pathPrefix: '/gatsby-contentful-starter',
+  siteMetadata: {
+    title: 'Blog | Victor Nghe',
+    siteUrl: `https://blog.victornghe.com`,
+    description: `Thoughts on 42.`,
+  },
+  pathPrefix: '/',
   plugins: [
     'gatsby-transformer-remark',
     'gatsby-plugin-react-helmet',
