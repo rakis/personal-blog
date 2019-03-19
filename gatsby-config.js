@@ -21,7 +21,7 @@ if (!spaceId || !accessToken) {
 
 module.exports = {
   siteMetadata: {
-    title: 'Blog | Victor Nghe',
+    title: `nothing new explained - a personal blog by Victor Nghe`,
     siteUrl: `https://blog.victornghe.com`,
     description: `Thoughts on 42.`,
   },
