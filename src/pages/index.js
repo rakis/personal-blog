@@ -1,6 +1,8 @@
 import React from 'react'
+import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import Helmet from 'react-helmet'
+import Layout from '../layouts';
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
 
@@ -11,22 +13,24 @@ class RootIndex extends React.Component {
     const [author] = get(this, 'props.data.allContentfulPerson.edges')
     console.log(siteTitle);
     return (
-      <div style={{ background: '#fff' }}>
-        <Helmet title={siteTitle} />
-        <Hero data={author.node} />
-        <div className="wrapper">
-          <h2 className="section-headline">Recent articles</h2>
-          <ul className="article-list">
-            {posts.map(({ node }) => {
-              return (
-                <li key={node.slug}>
-                  <ArticlePreview article={node} />
-                </li>
-              )
-            })}
-          </ul>
+      <Layout>
+        <div style={{ background: '#fff' }}>
+          <Helmet title={siteTitle} />
+          <Hero data={author.node} />
+          <div className="wrapper">
+            <h2 className="section-headline">Recent articles</h2>
+            <ul className="article-list">
+              {posts.map(({ node }) => {
+                return (
+                  <li key={node.slug}>
+                    <ArticlePreview article={node} />
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
         </div>
-      </div>
+      </Layout>
     )
   }
 }
@@ -48,8 +52,8 @@ export const pageQuery = graphql`
           publishDate(formatString: "MMMM Do, YYYY")
           tags
           heroImage {
-            sizes(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
-             ...GatsbyContentfulSizes_withWebp
+            fluid(maxWidth: 200) {
+             ...GatsbyContentfulFluid_withWebp
             }
           }
           description {
@@ -60,7 +64,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allContentfulPerson(filter: { id: { eq: "c15jwOBqpxqSAOy2eOO4S0m" } }) {
+    allContentfulPerson(filter: { contentful_id: { eq: "15jwOBqpxqSAOy2eOO4S0m" } }) {
       edges {
         node {
           name
@@ -69,13 +73,13 @@ export const pageQuery = graphql`
           }
           title
           heroImage: image {
-            sizes(
+            fluid(
               maxWidth: 1180
               maxHeight: 480
               resizingBehavior: PAD
               background: "rgb:000000"
             ) {
-              ...GatsbyContentfulSizes_withWebp
+              ...GatsbyContentfulFluid_withWebp
             }
           }
         }
